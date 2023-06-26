@@ -1,0 +1,7 @@
+syntax = "proto3";
+package athena.qcrescent;
+
+option go_package = "github.com/placeholder-dapps/athena/x/qcrescent/types";
+
+// Msg defines the Msg service.
+service Msg {}

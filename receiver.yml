@@ -1,0 +1,51 @@
+version: 1
+build:
+  proto:
+    path: proto
+    third_party_paths:
+    - third_party/proto
+    - proto_vendor
+accounts:
+- name: alice
+  coins:
+  - 20000000atom
+  - 2000000000stake
+  mnemonic: cruise scene law sea push expose scorpion wire trick repair wave quote
+    task dose inner denial alpha favorite certain blouse motion flash split lunch
+- name: bob
+  coins:
+  - 10000000atom
+  - 1000000000stake
+  mnemonic: lizard garlic canyon winner cheese tent drip task because ecology clay
+    bridge junk critic track artefact gather harsh deliver unit vacant earth diesel
+    stool
+faucet:
+  name: bob
+  coins:
+  - 1000000atom
+  - 100000000stake
+  host: :4501
+genesis:
+  app_state:
+    interchainquery:
+      params:
+        allow_queries:
+        - /cosmos.bank.v1beta1.Query/AllBalances
+  chain_id: receiver
+validators:
+- name: alice
+  bonded: 100000000stake
+  app:
+    api:
+      address: :1312
+    grpc:
+      address: :9096
+    grpc-web:
+      address: :8092
+  config:
+    p2p:
+      laddr: :26662
+    rpc:
+      laddr: :26559
+      pprof_laddr: :6062
+  home: $HOME/.receiver

@@ -1,5 +1,9 @@
 package types
 
+import (
+	icqtypes "github.com/strangelove-ventures/async-icq/v7/types"
+)
+
 const (
 	// ModuleName defines the module name
 	ModuleName = "qcrescent"
@@ -14,7 +18,7 @@ const (
 	MemStoreKey = "mem_qcrescent"
 
 	// Version defines the current version the IBC module supports
-	Version = "qcrescent-1"
+	Version = icqtypes.Version
 
 	// PortID is the default port id that module binds to
 	PortID = "qcrescent"

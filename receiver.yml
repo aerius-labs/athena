@@ -19,6 +19,11 @@ accounts:
   mnemonic: lizard garlic canyon winner cheese tent drip task because ecology clay
     bridge junk critic track artefact gather harsh deliver unit vacant earth diesel
     stool
+- name: relayer
+  coins:
+  - 2000000000000atom
+  - 2000000000000000000000stake
+  mnemonic: coconut culture play grid rain modify fence next suggest token nose taste segment convince season gasp decorate crime east swim ecology skill column anger    
 faucet:
   name: bob
   coins:
@@ -26,26 +31,26 @@ faucet:
   - 100000000stake
   host: :4501
 genesis:
+  chain_id: "receiver"
   app_state:
     interchainquery:
-      params:
-        allow_queries:
-        - /cosmos.bank.v1beta1.Query/AllBalances
-  chain_id: receiver
+        params:
+          allow_queries: ["/cosmos.bank.v1beta1.Query/AllBalances"]
 validators:
-- name: alice
-  bonded: 100000000stake
-  app:
-    api:
-      address: :1312
-    grpc:
-      address: :9096
-    grpc-web:
-      address: :8092
-  config:
-    p2p:
-      laddr: :26662
-    rpc:
-      laddr: :26559
-      pprof_laddr: :6062
-  home: $HOME/.receiver
+  - name: alice
+    bonded: 100000000stake
+    app:
+      api:
+        address: :1312
+      grpc:
+        address: :9096
+      grpc-web:
+        address: :8092
+    config:
+      p2p:
+        laddr: :26662
+      rpc:
+        laddr: :26560
+        pprof_laddr: :6062
+    home: $HOME/.receiver
+

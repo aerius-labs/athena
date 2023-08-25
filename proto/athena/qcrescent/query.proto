@@ -41,6 +41,6 @@ message QueryQueryStateRequest {
 
 message QueryQueryStateResponse {
   google.protobuf.Any request  = 1[(gogoproto.nullable) = false];
-  google.protobuf.Any response = 2[(gogoproto.nullable) = false];
+  google.protobuf.Any response = 2[(gogoproto.nullable) = true];
 }
 

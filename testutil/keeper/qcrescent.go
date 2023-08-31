@@ -83,7 +83,7 @@ func QcrescentKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
-		qcrescentChannelKeeper{},
+		// qcrescentChannelKeeper{},
 		qcrescentChannelKeeper{},
 		qcrescentPortKeeper{},
 		capabilityKeeper.ScopeToModule("QcrescentScopedKeeper"),

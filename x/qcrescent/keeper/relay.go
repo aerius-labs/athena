@@ -33,7 +33,7 @@ func (k Keeper) SendQuery(
 		return 0, sdkerrors.Wrap(err, "invalid interchain query packet data")
 	}
 
-	return k.ics4Wrapper.SendPacket(ctx, chanCap, sourcePort, sourceChannel, clienttypes.ZeroHeight(), timeoutTimestamp, icqPacketData.GetBytes())
+	return k.channelKeeper.SendPacket(ctx, chanCap, sourcePort, sourceChannel, clienttypes.ZeroHeight(), timeoutTimestamp, icqPacketData.GetBytes())
 }
 
 func (k Keeper) OnAcknowledgementPacket(

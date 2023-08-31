@@ -545,7 +545,6 @@ func New(
 		keys[qcrescentmoduletypes.MemStoreKey],
 		app.GetSubspace(qcrescentmoduletypes.ModuleName),
 		app.IBCKeeper.ChannelKeeper,
-		app.IBCKeeper.ChannelKeeper,
 		&app.IBCKeeper.PortKeeper,
 		scopedQcrescentKeeper,
 	)

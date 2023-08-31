@@ -37,6 +37,6 @@ func (k Keeper) QueryState(goCtx context.Context, req *types.QueryQueryStateRequ
 	}
 	return &types.QueryQueryStateResponse{
 		Request:  *anyQReq,
-		Response: *anyQResp,
+		Response: anyQResp,
 	}, nil
 }

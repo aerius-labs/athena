@@ -22,14 +22,6 @@ func (k Keeper) SendQuery(
 	timeoutHeight clienttypes.Height,
 	timeoutTimestamp uint64,
 ) (uint64, error) {
-	sourceChannelEnd, found := k.channelKeeper.GetChannel(ctx, sourcePort, sourceChannel)
-	if !found {
-		return 0, sdkerrors.Wrapf(channeltypes.ErrChannelNotFound, "port ID (%s) channel ID (%s)", sourcePort, sourceChannel)
-	}
-
-	destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
-	destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
-
 	data, err := icqtypes.SerializeCosmosQuery(reqs)
 	if err != nil {
 		return 0, sdkerrors.Wrap(err, "could not serialize reqs into cosmos query")
@@ -37,46 +29,11 @@ func (k Keeper) SendQuery(
 	icqPacketData := icqtypes.InterchainQueryPacketData{
 		Data: data,
 	}
-
-	return k.createOutgoingPacket(ctx, sourcePort, sourceChannel, destinationPort, destinationChannel, chanCap, icqPacketData, timeoutTimestamp)
-}
-
-func (k Keeper) createOutgoingPacket(
-	ctx sdk.Context,
-	sourcePort,
-	sourceChannel,
-	destinationPort,
-	destinationChannel string,
-	chanCap *capabilitytypes.Capability,
-	icqPacketData icqtypes.InterchainQueryPacketData,
-	timeoutTimestamp uint64,
-) (uint64, error) {
 	if err := icqPacketData.ValidateBasic(); err != nil {
 		return 0, sdkerrors.Wrap(err, "invalid interchain query packet data")
 	}
-
-	// get the next sequence
-	sequence, found := k.channelKeeper.GetNextSequenceSend(ctx, sourcePort, sourceChannel)
-	if !found {
-		return 0, sdkerrors.Wrapf(channeltypes.ErrSequenceSendNotFound, "failed to retrieve next sequence send for channel %s on port %s", sourceChannel, sourcePort)
-	}
-
-	packet := channeltypes.NewPacket(
-		icqPacketData.GetBytes(),
-		sequence,
-		sourcePort,
-		sourceChannel,
-		destinationPort,
-		destinationChannel,
-		clienttypes.ZeroHeight(),
-		timeoutTimestamp,
-	)
-	// TODO: add support for sending packets
-	// if err := k.ics4Wrapper.SendPacket(ctx, chanCap, packet); err != nil {
-	// 	return 0, err
-	// }
-
-	return packet.Sequence, nil
+	// Destination port and channel are now part SendPacket function also packect are also formed in SendPacket function.
+	return k.channelKeeper.SendPacket(ctx, chanCap, sourcePort, sourceChannel, clienttypes.ZeroHeight(), timeoutTimestamp, icqPacketData.GetBytes())
 }
 
 func (k Keeper) OnAcknowledgementPacket(

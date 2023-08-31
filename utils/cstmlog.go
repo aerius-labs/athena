@@ -1,4 +1,4 @@
-package cstmlog
+package utils
 
 import (
 	"fmt"

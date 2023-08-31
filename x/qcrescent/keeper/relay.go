@@ -32,7 +32,7 @@ func (k Keeper) SendQuery(
 	if err := icqPacketData.ValidateBasic(); err != nil {
 		return 0, sdkerrors.Wrap(err, "invalid interchain query packet data")
 	}
-
+	// Destination port and channel are now part SendPacket function also packect are also formed in SendPacket function.
 	return k.channelKeeper.SendPacket(ctx, chanCap, sourcePort, sourceChannel, clienttypes.ZeroHeight(), timeoutTimestamp, icqPacketData.GetBytes())
 }
 

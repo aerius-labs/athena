@@ -1,0 +1,8 @@
+# Interchain queries demo
+- name: icqd
+  github-organization: aerius-labs
+  github-repo: athena
+  dockerfile: cosmos
+  build-target: go build -ldflags "$LDFLAGS" -o build/icq ./cmd/athenad
+  binaries:
+    - build/icq

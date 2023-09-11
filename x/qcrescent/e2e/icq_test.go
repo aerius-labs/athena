@@ -2,12 +2,18 @@ package e2e
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"testing"
 
+	"github.com/cosmos/cosmos-sdk/crypto/keyring"
+	"github.com/icza/dyno"
 	"github.com/strangelove-ventures/interchaintest/v7"
+	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 	"github.com/strangelove-ventures/interchaintest/v7/ibc"
 	"github.com/strangelove-ventures/interchaintest/v7/relayer"
 	"github.com/strangelove-ventures/interchaintest/v7/testreporter"
+	"github.com/strangelove-ventures/interchaintest/v7/testutil"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 )
@@ -30,7 +36,7 @@ func TestInterchainQueries(t *testing.T) {
 	numNodes := 0
 
 	dockerImage := ibc.DockerImage{
-		Repository: "ghcr.io/strangelove-ventures/heighliner/icqd",
+		Repository: "ghcr.io/suniljalandhra/athena:latest",
 		Version:    "latest",
 		UidGid:     "1025:1025",
 	}
@@ -95,7 +101,7 @@ func TestInterchainQueries(t *testing.T) {
 			Relayer: r,
 			Path:    pathName,
 			CreateChannelOpts: ibc.CreateChannelOptions{
-				SourcePortName: "interquery",
+				SourcePortName: "qcrescent",
 				DestPortName:   "icqhost",
 				Order:          ibc.Unordered,
 				Version:        "icq-1",
@@ -109,4 +115,123 @@ func TestInterchainQueries(t *testing.T) {
 
 		SkipPathCreation: false,
 	}))
+	t.Cleanup(func() {
+		_ = ic.Close()
+	})
+
+	// Fund user accounts, so we can query balances and make assertions.
+	const userFunds = int64(10_000_000_000)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), userFunds, controllerChain, hostChain)
+	controllerUser := users[0]
+	hostUser := users[1]
+
+	// Wait a few blocks for user accounts to be created on chain.
+	err = testutil.WaitForBlocks(ctx, 5, controllerChain, hostChain)
+	require.NoError(t, err)
+
+	// Query for the recently created channel-id.
+	channels, err := r.GetChannels(ctx, eRep, controllerChain.Config().ChainID)
+	require.NoError(t, err)
+
+	// Start the relayer.
+	err = r.StartRelayer(ctx, eRep, pathName)
+	require.NoError(t, err)
+
+	t.Cleanup(
+		func() {
+			err := r.StopRelayer(ctx, eRep)
+			if err != nil {
+				t.Logf("an error occured while stopping the relayer: %s", err)
+			}
+		},
+	)
+
+	// Wait a few blocks for the relayer to start.
+	err = testutil.WaitForBlocks(ctx, 5, controllerChain, hostChain)
+	require.NoError(t, err)
+
+	// Query for the balances of an account on the counterparty chain using interchain queries.
+	chanID := channels[0].Counterparty.ChannelID
+	require.NotEmpty(t, chanID)
+
+	controllerAddr := controllerUser.(*cosmos.CosmosWallet).FormattedAddress()
+	require.NotEmpty(t, controllerAddr)
+
+	hostAddr := hostUser.(*cosmos.CosmosWallet).FormattedAddress()
+	require.NotEmpty(t, hostAddr)
+
+	cmd := []string{"icq", "tx", "qcrescent", "send-query-all-balances", chanID, hostAddr,
+		"--node", controllerChain.GetRPCAddress(),
+		"--home", controllerChain.HomeDir(),
+		"--chain-id", controllerChain.Config().ChainID,
+		"--from", controllerAddr,
+		"--keyring-dir", controllerChain.HomeDir(),
+		"--keyring-backend", keyring.BackendTest,
+		"-y",
+	}
+	_, _, err = controllerChain.Exec(ctx, cmd, nil)
+	require.NoError(t, err)
+
+	// Wait a few blocks for query to be sent to counterparty.
+	err = testutil.WaitForBlocks(ctx, 5, controllerChain)
+	require.NoError(t, err)
+
+	// Check the results from the interchain query above.
+	cmd = []string{"icq", "query", "qcrescent", "query-state", "1",
+		"--node", controllerChain.GetRPCAddress(),
+		"--home", controllerChain.HomeDir(),
+		"--chain-id", controllerChain.Config().ChainID,
+		"--output", "json",
+	}
+
+	stdout, _, err := controllerChain.Exec(ctx, cmd, nil)
+	require.NoError(t, err)
+
+	results := &icqResults{}
+	err = json.Unmarshal(stdout, results)
+	require.NoError(t, err)
+	require.NotEmpty(t, results.Request)
+	require.NotEmpty(t, results.Response)
+}
+
+type icqResults struct {
+	Request struct {
+		Type       string `json:"@type"`
+		Address    string `json:"address"`
+		Pagination struct {
+			Key        interface{} `json:"key"`
+			Offset     string      `json:"offset"`
+			Limit      string      `json:"limit"`
+			CountTotal bool        `json:"count_total"`
+			Reverse    bool        `json:"reverse"`
+		} `json:"pagination"`
+	} `json:"request"`
+	Response struct {
+		Type     string `json:"@type"`
+		Balances []struct {
+			Amount string `json:"amount"`
+			Denom  string `json:"denom"`
+		} `json:"balances"`
+		Pagination struct {
+			NextKey interface{} `json:"next_key"`
+			Total   string      `json:"total"`
+		} `json:"pagination"`
+	} `json:"response"`
+}
+
+func modifyGenesisAllowICQQueries(allowQueries []string) func(ibc.ChainConfig, []byte) ([]byte, error) {
+	return func(chainConfig ibc.ChainConfig, genbz []byte) ([]byte, error) {
+		g := make(map[string]interface{})
+		if err := json.Unmarshal(genbz, &g); err != nil {
+			return nil, fmt.Errorf("failed to unmarshal genesis file: %w", err)
+		}
+		if err := dyno.Set(g, allowQueries, "app_state", "interchainquery", "params", "allow_queries"); err != nil {
+			return nil, fmt.Errorf("failed to set allowed interchain queries in genesis json: %w", err)
+		}
+		out, err := json.Marshal(g)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal genesis bytes to json: %w", err)
+		}
+		return out, nil
+	}
 }

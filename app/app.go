@@ -134,6 +134,7 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	qwasm "github.com/placeholder-dapps/athena/wasmbinding"
 )
 
 const (
@@ -576,6 +577,8 @@ func New(
 		wasmOpts,
 		wasmkeeper.WithQueryPlugins(nil),
 	)
+
+	wasmOpts = append(wasmOpts, qwasm.RegisterCustomPlugins(&app.QcrescentKeeper)...)
 	// The last arguments can contain custom message handlers, and custom query handlers,
 	// if we want to allow any custom callbacks
 	app.WasmKeeper = wasm.NewKeeper(

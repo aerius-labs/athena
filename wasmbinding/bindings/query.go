@@ -1,15 +1,19 @@
 package wasmbinding
 
-import types "github.com/cosmos/cosmos-sdk/codec/types"
+import (
+	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
+)
 
+// QcrescentQuery Contains Qcrescent custom queries
 type QcrescentQuery struct {
-	QueryQueryStateRequest `json:"query_query_state_request"`
+	// Query state of Qcrescent keeper to find the balance of account of other chain
+	QueryState *QueryQueryStateRequest `json:"query_query_state_request"`
 }
 
 type QueryQueryStateRequest struct {
-	Sequence uint64 `protobuf:"varint,1,opt,name=sequence,proto3" json:"sequence,omitempty"`
+	Sequence uint64 `json:"sequence"`
 }
 type QueryQueryStateResponse struct {
-	Request  types.Any  `protobuf:"bytes,1,opt,name=request,proto3" json:"request"`
-	Response *types.Any `protobuf:"bytes,2,opt,name=response,proto3" json:"response,omitempty"`
+	// Address wasmvmtypes.HumanAddress        `json:"address"`
+	Coins wasmvmtypes.Coins `json:"coins"`
 }

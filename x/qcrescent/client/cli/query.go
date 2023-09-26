@@ -10,7 +10,7 @@ import (
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

@@ -3,6 +3,8 @@ package qcrescent
 import (
 	"strconv"
 
+	"github.com/aerius-labs/athena/x/qcrescent/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
@@ -10,8 +12,6 @@ import (
 	porttypes "github.com/cosmos/ibc-go/v7/modules/core/05-port/types"
 	host "github.com/cosmos/ibc-go/v7/modules/core/24-host"
 	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
-	"github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 	icqtypes "github.com/strangelove-ventures/async-icq/v7/types"
 )
 

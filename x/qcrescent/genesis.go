@@ -1,9 +1,9 @@
 package qcrescent
 
 import (
+	"github.com/aerius-labs/athena/x/qcrescent/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

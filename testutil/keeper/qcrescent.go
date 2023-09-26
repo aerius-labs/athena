@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	"github.com/aerius-labs/athena/x/qcrescent/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 
 	tmdb "github.com/cometbft/cometbft-db"
 	"github.com/cometbft/cometbft/libs/log"

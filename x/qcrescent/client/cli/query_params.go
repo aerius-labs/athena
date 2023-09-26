@@ -5,7 +5,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
 
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 )
 
 func CmdQueryParams() *cobra.Command {

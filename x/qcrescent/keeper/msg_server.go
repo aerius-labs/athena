@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 )
 
 type msgServer struct {

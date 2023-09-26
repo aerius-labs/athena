@@ -117,14 +117,14 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/cast"
 
-	qcrescentmodule "github.com/placeholder-dapps/athena/x/qcrescent"
-	qcrescentmodulekeeper "github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	qcrescentmoduletypes "github.com/placeholder-dapps/athena/x/qcrescent/types"
+	qcrescentmodule "github.com/aerius-labs/athena/x/qcrescent"
+	qcrescentmodulekeeper "github.com/aerius-labs/athena/x/qcrescent/keeper"
+	qcrescentmoduletypes "github.com/aerius-labs/athena/x/qcrescent/types"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	appparams "github.com/placeholder-dapps/athena/app/params"
-	"github.com/placeholder-dapps/athena/docs"
+	appparams "github.com/aerius-labs/athena/app/params"
+	"github.com/aerius-labs/athena/docs"
 
 	// importing the async-icq module from strangeLove
 	icq "github.com/strangelove-ventures/async-icq/v7"

@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
+	keepertest "github.com/aerius-labs/athena/testutil/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	keepertest "github.com/placeholder-dapps/athena/testutil/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 	"github.com/stretchr/testify/require"
 )
 

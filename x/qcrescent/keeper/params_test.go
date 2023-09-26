@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/placeholder-dapps/athena/testutil/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	testkeeper "github.com/aerius-labs/athena/testutil/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	"github.com/stretchr/testify/require"
 )
 

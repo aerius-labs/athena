@@ -12,15 +12,15 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
+	"github.com/aerius-labs/athena/x/qcrescent/client/cli"
+	"github.com/aerius-labs/athena/x/qcrescent/keeper"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	porttypes "github.com/cosmos/ibc-go/v7/modules/core/05-port/types"
-	"github.com/placeholder-dapps/athena/x/qcrescent/client/cli"
-	"github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 )
 
 var (

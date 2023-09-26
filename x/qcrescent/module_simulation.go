@@ -3,14 +3,14 @@ package qcrescent
 import (
 	"math/rand"
 
+	"github.com/aerius-labs/athena/testutil/sample"
+	qcrescentsimulation "github.com/aerius-labs/athena/x/qcrescent/simulation"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/placeholder-dapps/athena/testutil/sample"
-	qcrescentsimulation "github.com/placeholder-dapps/athena/x/qcrescent/simulation"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 )
 
 // avoid unused import issue

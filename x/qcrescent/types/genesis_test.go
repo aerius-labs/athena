@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	"github.com/stretchr/testify/require"
 )
 

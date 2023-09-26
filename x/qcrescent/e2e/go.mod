@@ -1,4 +1,4 @@
-module github.com/placeholder-dapps/athena/x/qcrescent/e2e
+module github.com/aerius-labs/athena/x/qcrescent/e2e
 
 go 1.19
 

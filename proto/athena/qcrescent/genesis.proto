@@ -5,7 +5,7 @@ package athena.qcrescent;
 import "gogoproto/gogo.proto";
 import "athena/qcrescent/params.proto";
 
-option go_package = "github.com/placeholder-dapps/athena/x/qcrescent/types";
+option go_package = "github.com/aerius-labs/athena/x/qcrescent/types";
 
 // GenesisState defines the qcrescent module's genesis state.
 message GenesisState {

@@ -3,9 +3,9 @@ package cli
 import (
 	"strconv"
 
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )

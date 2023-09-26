@@ -3,10 +3,10 @@ package qcrescent_test
 import (
 	"testing"
 
-	keepertest "github.com/placeholder-dapps/athena/testutil/keeper"
-	"github.com/placeholder-dapps/athena/testutil/nullify"
-	"github.com/placeholder-dapps/athena/x/qcrescent"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
+	keepertest "github.com/aerius-labs/athena/testutil/keeper"
+	"github.com/aerius-labs/athena/testutil/nullify"
+	"github.com/aerius-labs/athena/x/qcrescent"
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -8,20 +8,20 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "athena/qcrescent/params.proto";
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/placeholder-dapps/athena/x/qcrescent/types";
+option go_package = "github.com/aerius-labs/athena/x/qcrescent/types";
 
 // Query defines the gRPC querier service.
 service Query {
   
   // Parameters queries the parameters of the module.
   rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/placeholder-dapps/athena/qcrescent/params";
+    option (google.api.http).get = "/aerius-labs/athena/qcrescent/params";
   
   }
   
   // Queries a list of QueryState items.
   rpc QueryState (QueryQueryStateRequest) returns (QueryQueryStateResponse) {
-    option (google.api.http).get = "/placeholder-dapps/athena/qcrescent/query_state/{sequence}";
+    option (google.api.http).get = "/aerius-labs/athena/qcrescent/query_state/{sequence}";
   
   }
 }

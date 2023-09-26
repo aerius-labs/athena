@@ -1,7 +1,7 @@
 syntax = "proto3";
 package athena.qcrescent;
 
-option go_package = "github.com/placeholder-dapps/athena/x/qcrescent/types";
+option go_package = "github.com/aerius-labs/athena/x/qcrescent/types";
 
 message QcrescentPacketData {
     oneof packet {

@@ -3,8 +3,8 @@ package keeper
 import (
 	"context"
 
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

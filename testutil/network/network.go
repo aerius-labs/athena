@@ -19,7 +19,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/placeholder-dapps/athena/app"
+	"github.com/aerius-labs/athena/app"
 )
 
 type (

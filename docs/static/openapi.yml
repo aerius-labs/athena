@@ -4,7 +4,7 @@ info:
   name: ''
   description: ''
 paths:
-  /placeholder-dapps/athena/qcrescent/params:
+  /aerius-labs/athena/qcrescent/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: AthenaQcrescentParams
@@ -207,7 +207,7 @@ paths:
                         }
       tags:
         - Query
-  /placeholder-dapps/athena/qcrescent/query_state/{sequence}:
+  /aerius-labs/athena/qcrescent/query_state/{sequence}:
     get:
       summary: Queries a list of QueryState items.
       operationId: AthenaQcrescentQueryState

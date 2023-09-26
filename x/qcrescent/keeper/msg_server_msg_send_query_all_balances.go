@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -11,7 +12,6 @@ import (
 	clienttypes "github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
 	channeltypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
 	host "github.com/cosmos/ibc-go/v7/modules/core/24-host"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 )
 
 func (k msgServer) MsgSendQueryAllBalances(goCtx context.Context, msg *types.MsgMsgSendQueryAllBalances) (*types.MsgMsgSendQueryAllBalancesResponse, error) {

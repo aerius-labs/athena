@@ -1,11 +1,11 @@
 package keeper
 
 import (
+	"github.com/aerius-labs/athena/x/qcrescent/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	gogotypes "github.com/gogo/protobuf/types"
-	"github.com/placeholder-dapps/athena/x/qcrescent/types"
 )
 
 // SetQueryRequest saves the query request

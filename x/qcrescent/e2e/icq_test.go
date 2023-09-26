@@ -36,7 +36,7 @@ func TestInterchainQueries(t *testing.T) {
 	numNodes := 0
 
 	dockerImage := ibc.DockerImage{
-		Repository: "ghcr.io/suniljalandhra/athena:latest",
+		Repository: "ghcr.io/suniljalandhra/athena",
 		Version:    "latest",
 		UidGid:     "1025:1025",
 	}

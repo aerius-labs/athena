@@ -8,6 +8,15 @@ ignite chain serve
 
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
+
+## Docker Image
+
+build docker image using [heigliner](https://github.com/strangelove-ventures/heighliner).
+
+```
+heighliner build -c athena --file "./chains.yml" -g latest
+```
+
 ### Configure
 
 Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).

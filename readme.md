@@ -1,6 +1,5 @@
 # athena
-**athena** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
-
+**athena** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli). It features seamless integration of [async-ICQ](https://github.com/strangelove-ventures/async-icq) and includes support for CosmWasm through the utilization of [wasmd](https://github.com/CosmWasm/wasmd).
 ## Get started
 
 ```

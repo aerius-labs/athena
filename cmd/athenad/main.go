@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/placeholder-dapps/athena/app"
-	"github.com/placeholder-dapps/athena/cmd/athenad/cmd"
+	"github.com/aerius-labs/athena/app"
+	"github.com/aerius-labs/athena/cmd/athenad/cmd"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/placeholder-dapps/athena
+module github.com/aerius-labs/athena
 
 go 1.19
 

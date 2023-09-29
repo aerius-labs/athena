@@ -42,8 +42,8 @@ import (
 
 	// this line is used by starport scaffolding # root/moduleImport
 
-	"github.com/placeholder-dapps/athena/app"
-	appparams "github.com/placeholder-dapps/athena/app/params"
+	"github.com/aerius-labs/athena/app"
+	appparams "github.com/aerius-labs/athena/app/params"
 )
 
 // NewRootCmd creates a new root command for a Cosmos SDK application

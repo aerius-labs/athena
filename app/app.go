@@ -118,8 +118,8 @@ import (
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	appparams "github.com/placeholder-dapps/athena/app/params"
-	"github.com/placeholder-dapps/athena/docs"
+	appparams "github.com/aerius-labs/athena/app/params"
+	"github.com/aerius-labs/athena/docs"
 
 	// importing the async-icq module from strangeLove
 	icq "github.com/strangelove-ventures/async-icq/v7"

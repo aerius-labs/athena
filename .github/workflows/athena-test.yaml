@@ -1,4 +1,4 @@
-name: athena-pipeline
+name: athena-test
 on: push
 jobs:
     test:

@@ -1,6 +1,5 @@
 # athena
-**athena** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
-
+**athena** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli). It features seamless integration of [async-ICQ](https://github.com/strangelove-ventures/async-icq) and includes support for CosmWasm through the utilization of [wasmd](https://github.com/CosmWasm/wasmd).
 ## Get started
 
 ```
@@ -8,6 +7,15 @@ ignite chain serve
 ```
 
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
+
+
+## Docker Image
+
+build docker image using [heigliner](https://github.com/strangelove-ventures/heighliner).
+
+```
+heighliner build -c athena --file "./chains.yml" -g latest
+```
 
 ### Configure
 
@@ -41,7 +49,7 @@ To install the latest version of your blockchain node's binary, execute the foll
 ```
 curl https://get.ignite.com/aerius-labs/athena@latest! | sudo bash
 ```
-`placeholder-dapps/athena` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
+
 
 ## Learn more
 

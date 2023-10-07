@@ -116,14 +116,10 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/cast"
 
-	qcrescentmodule "github.com/placeholder-dapps/athena/x/qcrescent"
-	qcrescentmodulekeeper "github.com/placeholder-dapps/athena/x/qcrescent/keeper"
-	qcrescentmoduletypes "github.com/placeholder-dapps/athena/x/qcrescent/types"
-
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	appparams "github.com/placeholder-dapps/athena/app/params"
-	"github.com/placeholder-dapps/athena/docs"
+	appparams "github.com/aerius-labs/athena/app/params"
+	"github.com/aerius-labs/athena/docs"
 
 	// importing the async-icq module from strangeLove
 	icq "github.com/strangelove-ventures/async-icq/v7"
@@ -137,7 +133,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "cosmos"
+	AccountAddressPrefix = "athena"
 	Name                 = "athena"
 )
 
@@ -222,7 +218,6 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		consensus.AppModuleBasic{},
-		qcrescentmodule.AppModuleBasic{},
 		icq.AppModuleBasic{},
 		ibcfee.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
@@ -306,9 +301,6 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 	ScopedWasmKeeper     capabilitykeeper.ScopedKeeper
 	ScopedIBCFeeKeeper   capabilitykeeper.ScopedKeeper
-
-	ScopedQcrescentKeeper capabilitykeeper.ScopedKeeper
-	QcrescentKeeper       qcrescentmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -357,7 +349,7 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibcexported.StoreKey, upgradetypes.StoreKey,
 		feegrant.StoreKey, evidencetypes.StoreKey, ibctransfertypes.StoreKey, icqtypes.StoreKey, icahosttypes.StoreKey,
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
-		qcrescentmoduletypes.StoreKey, wasm.StoreKey, ibcfeetypes.StoreKey,
+		wasm.StoreKey, ibcfeetypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -639,20 +631,6 @@ func New(
 		),
 	)
 
-	scopedQcrescentKeeper := app.CapabilityKeeper.ScopeToModule(qcrescentmoduletypes.ModuleName)
-	app.ScopedQcrescentKeeper = scopedQcrescentKeeper
-	app.QcrescentKeeper = *qcrescentmodulekeeper.NewKeeper(
-		appCodec,
-		keys[qcrescentmoduletypes.StoreKey],
-		keys[qcrescentmoduletypes.MemStoreKey],
-		app.GetSubspace(qcrescentmoduletypes.ModuleName),
-		app.IBCKeeper.ChannelKeeper,
-		&app.IBCKeeper.PortKeeper,
-		scopedQcrescentKeeper,
-	)
-	qcrescentModule := qcrescentmodule.NewAppModule(appCodec, app.QcrescentKeeper, app.AccountKeeper, app.BankKeeper)
-
-	qcrescentIBCModule := qcrescentmodule.NewIBCModule(app.QcrescentKeeper)
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	/**** IBC Routing ****/
@@ -669,7 +647,6 @@ func New(
 	ibcRouter.AddRoute(icahosttypes.SubModuleName, icaHostIBCModule).
 		AddRoute(ibctransfertypes.ModuleName, transferIBCModule).
 		AddRoute(wasm.ModuleName, wasmStack)
-	ibcRouter.AddRoute(qcrescentmoduletypes.ModuleName, qcrescentIBCModule)
 	ibcRouter.AddRoute(icqtypes.ModuleName, icqIBCModule)
 	// this line is used by starport scaffolding # ibc/app/router
 	app.IBCKeeper.SetRouter(ibcRouter)
@@ -722,7 +699,6 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		icaModule,
-		qcrescentModule,
 		icqModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 
@@ -756,7 +732,6 @@ func New(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
-		qcrescentmoduletypes.ModuleName,
 		icqtypes.ModuleName,
 		wasm.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
@@ -784,7 +759,6 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
-		qcrescentmoduletypes.ModuleName,
 		icqtypes.ModuleName,
 		wasm.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
@@ -818,7 +792,6 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
-		qcrescentmoduletypes.ModuleName,
 		icqtypes.ModuleName,
 		// wasm after ibc transfer
 		wasm.ModuleName,
@@ -1073,7 +1046,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibcexported.ModuleName)
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
-	paramsKeeper.Subspace(qcrescentmoduletypes.ModuleName)
 	paramsKeeper.Subspace(icqtypes.ModuleName)
 	paramsKeeper.Subspace(wasm.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace

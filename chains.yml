@@ -1,0 +1,9 @@
+- name: athena
+  github-organization: aerius-labs
+  github-repo: athena
+  dockerfile: cosmos
+  build-target: go build -tags=muslc -ldflags "$LDFLAGS" -o build/athena ./cmd/athenad 
+  build-env:
+    - CGO_ENABLED=1
+  binaries:
+    - build/athena

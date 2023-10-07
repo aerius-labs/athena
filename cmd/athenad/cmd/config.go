@@ -3,7 +3,7 @@ package cmd
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/placeholder-dapps/athena/app"
+	"github.com/aerius-labs/athena/app"
 )
 
 func initSDKConfig() {
